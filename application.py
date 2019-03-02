@@ -14,7 +14,9 @@ session = DBSession()
 
 @app.route('/')
 def item():
-    return render_template('item.html')
+    category = session.query(Category)
+    items = session.query(Item)
+    return render_template('item.html', category=category, items=items)
 
 @app.route('/categories/<int:category_id>/item')
 def itemWithCategory(category_id):

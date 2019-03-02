@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title></title>
+    <title>Item Catalog</title>
 </head>
 <body>
-Hello Template!
+{% for i in items %}
+{{i.name}}
+{{i.description}}
+
+{% endfor %}
 </body>
 </html>
