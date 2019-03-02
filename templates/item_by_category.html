@@ -4,14 +4,8 @@
     <title>Item Catalog</title>
 </head>
 <body>
-Categories:
-<p>
-{% for i in category %}
-{{i.name}}
-</p>
-{% endfor %}
+Category: {{category.name}}
 <br>
-Items:
 <p>
 {% for i in items %}
 {{i.name}}
