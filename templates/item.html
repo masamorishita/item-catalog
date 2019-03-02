@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Item Catalog</title>
-</head>
-<body>
+{% extends "main.html" %}
+{% block content %}
+
 Categories:
 <p>
 {% for i in category %}
@@ -20,5 +17,5 @@ Items:
 <br>
 </p>
 {% endfor %}
-</body>
-</html>
+
+{% endblock %}
