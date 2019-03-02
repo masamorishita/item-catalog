@@ -5,10 +5,22 @@ from database_setup import Base, User, Category, Item
 
 app = Flask(__name__)
 
+engine = create_engine('sqlite:///itemwithusers.db')
+Base.metadata.bind = engine
+
+DBSession = sessionmaker(bind=engine)
+session = DBSession()
+
 
 @app.route('/')
 def item():
     return render_template('item.html')
+
+@app.route('/categories/<int:category_id>/item')
+def itemWithCategory(category_id):
+    category = session.query(Category).filter_by(id=category_id).one()
+    items = session.query(Item).filter_by(category_id=category_id)
+    return render_template('item.html', category=category, items=items, category_id=category_id)
 
 if __name__ == '__main__':
     app.debug = True
