@@ -4,10 +4,15 @@
     <title>Item Catalog</title>
 </head>
 <body>
+Category: {{category.name}}
+<br>
+<p>
 {% for i in items %}
 {{i.name}}
+<br>
 {{i.description}}
-
+<br>
+</p>
 {% endfor %}
 </body>
 </html>
