@@ -46,6 +46,7 @@ def newItem():
     else:
         return render_template('newitem.html')
 
+
 #Edit an item
 @app.route('/catalog/<item_name>/edit/', methods=['GET', 'POST'])
 def editItem(item_name):
@@ -63,6 +64,19 @@ def editItem(item_name):
         return redirect(url_for('item'))
     else:
         return render_template('edititem.html', item=editedItem, categories=categories)
+
+
+#Delete an item
+@app.route('/catalog/<item_name>/delete/', methods=['GET', 'POST'])
+def deleteItem(item_name):
+    deletedItem = session.query(Item).filter_by(name=item_name).one()
+    if request.method == 'POST':
+        session.delete(deletedItem)
+        session.commit()
+        return redirect(url_for('item'))
+    else:
+        return render_template('deleteitem.html', item=deletedItem)
+
 
 if __name__ == '__main__':
     app.debug = True
