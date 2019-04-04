@@ -21,11 +21,24 @@ def item():
     return render_template('item.html', category=category, items=items)
 
 #Show all items in each category
-@app.route('/categories/<int:category_id>/item')
+@app.route('/categories/<int:category_id>/item/')
 def itemWithCategory(category_id):
     category = session.query(Category).filter_by(id=category_id).one()
     items = session.query(Item).filter_by(category_id=category_id)
     return render_template('item_by_category.html', category=category, items=items, category_id=category_id)
+
+#Create a new item
+@app.route('/categories/<int:category_id>/item/new/', methods=['GET', 'POST'])
+def newItem(category_id):
+    if request.method == 'POST':
+        newItem = Item(name=request.form['name'], description=request.form['description'],category_id=category_id)
+        session.add(newItem)
+        session.commit()
+
+        return redirect(url_for('item'))
+    else:
+        return render_template('newitem.html', category_id=category_id)
+
 
 if __name__ == '__main__':
     app.debug = True
