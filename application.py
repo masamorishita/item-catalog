@@ -50,6 +50,7 @@ def newItem():
 @app.route('/catalog/<item_name>/edit/', methods=['GET', 'POST'])
 def editItem(item_name):
     editedItem = session.query(Item).filter_by(name=item_name).one()
+    categories = session.query(Category)
     if request.method == 'POST':
         if request.form['name']:
             editedItem.name = request.form['name']
@@ -61,7 +62,7 @@ def editItem(item_name):
         session.commit()
         return redirect(url_for('item'))
     else:
-        return render_template('edititem.html', item=editedItem, category=editedItem.category)
+        return render_template('edititem.html', item=editedItem, categories=categories)
 
 if __name__ == '__main__':
     app.debug = True

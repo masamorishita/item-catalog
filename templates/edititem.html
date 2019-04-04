@@ -9,16 +9,10 @@
     <p>Description:</p>
         <input type="text" size="30" name="description" value="{{item.description}}">
     <p>Category</p>
-        <select type="number" name="category" value="{{item.category}}">
-            <option value="1">Soccer</option>
-            <option value="2">Basketball</option>
-            <option value="3">Baseball</option>
-            <option value="4">Frisbee</option>
-            <option value="5">Snowboarding</option>
-            <option value="6">Rock Climbing</option> 
-            <option value="7">Foosball</option>
-            <option value="8">Skating</option>
-            <option value="9">Hockey</option>             
+        <select type="number" name="category">
+            {% for i in categories %}
+            <option value="{{ i.id }}" {% if item.category_id == i.id %} selected {% endif %}>{{ i.name }}</option>
+            {% endfor %}             
         </select>
     </br>
 
