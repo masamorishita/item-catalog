@@ -78,6 +78,13 @@ def deleteItem(item_name):
         return render_template('deleteitem.html', item=deletedItem)
 
 
+#Making an API Endpoint (GET Request)
+@app.route('/catalog.json')
+def itemJson():
+    items = session.query(Item).order_by(Item.id.asc())
+    return jsonify(Item=[i.serialize for i in items])
+
+
 if __name__ == '__main__':
     app.debug = True
     app.run(host = '0.0.0.0', port = 8000, threaded = False)
