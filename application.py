@@ -35,16 +35,16 @@ def itemInformation(category_name, item_name):
     return render_template('item_information.html', category=category, items=items)
 
 #Create a new item
-@app.route('/catalog/<int:category_id>/item/new/', methods=['GET', 'POST'])
-def newItem(category_id):
+@app.route('/catalog/item/new/', methods=['GET', 'POST'])
+def newItem():
     if request.method == 'POST':
-        newItem = Item(name=request.form['name'], description=request.form['description'],category_id=category_id)
+        newItem = Item(name=request.form['name'], description=request.form['description'],category_id=request.form['category'])
         session.add(newItem)
         session.commit()
 
         return redirect(url_for('item'))
     else:
-        return render_template('newitem.html', category_id=category_id)
+        return render_template('newitem.html')
 
 
 if __name__ == '__main__':
