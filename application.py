@@ -14,21 +14,21 @@ session = DBSession()
 
 #Show all categories and items
 @app.route('/')
-@app.route('/categories')
+@app.route('/catalog')
 def item():
     category = session.query(Category).order_by(asc(Category.name))
     items = session.query(Item).order_by(asc(Item.id))
     return render_template('item.html', category=category, items=items)
 
 #Show all items in each category
-@app.route('/categories/<int:category_id>/item/')
-def itemWithCategory(category_id):
-    category = session.query(Category).filter_by(id=category_id).one()
-    items = session.query(Item).filter_by(category_id=category_id)
-    return render_template('item_by_category.html', category=category, items=items, category_id=category_id)
+@app.route('/catalog/<category_name>/item/')
+def itemWithCategory(category_name):
+    category = session.query(Category).filter_by(name=category_name).one()
+    items = session.query(Item).filter_by(category=category)
+    return render_template('item_by_category.html', category=category, items=items)
 
 #Create a new item
-@app.route('/categories/<int:category_id>/item/new/', methods=['GET', 'POST'])
+@app.route('/catalog/<int:category_id>/item/new/', methods=['GET', 'POST'])
 def newItem(category_id):
     if request.method == 'POST':
         newItem = Item(name=request.form['name'], description=request.form['description'],category_id=category_id)
