@@ -131,7 +131,6 @@ def gdisconnect():
     print 'User name is: '
     print login_session['username']
 
-
     url = 'https://accounts.google.com/o/oauth2/revoke?token=%s' % login_session['access_token']
     h = httplib2.Http()
     result = h.request(url, 'GET')[0]
@@ -149,7 +148,6 @@ def gdisconnect():
         response = make_response(json.dumps('Successfully disconected.'), 200)
         response.headers['Content-Type'] = 'application/json'
         return response
-
     else:
         # For whatever reason, the given token was invalid
         response = make_response(json.dumps('Failed to revoke token for given user.'), 400)
