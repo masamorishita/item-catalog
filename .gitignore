@@ -1,0 +1,4 @@
+__pycache__/
+.DS_Store
+database_setup.pyc
+itemwithusers.db

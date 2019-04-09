@@ -26,10 +26,9 @@ class Category(Base):
     @property
     def serialize(self):
         return {
-        "id": self.id,
-        "name": self.name
-        }
-    
+            "id": self.id,
+            "name": self.name
+            }
 
 
 class Item(Base):
@@ -46,12 +45,13 @@ class Item(Base):
     @property
     def serialize(self):
         return {
-        "cat_id": self.category_id,
-        "cat_name": self.category.name,
-        "description": self.description,
-        "id": self.id,
-        "name": self.name
-        }
+            "cat_id": self.category_id,
+            "cat_name": self.category.name,
+            "description": self.description,
+            "id": self.id,
+            "name": self.name
+            }
+
 
 engine = create_engine('sqlite:///itemwithusers.db')
 

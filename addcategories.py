@@ -10,13 +10,14 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
-#Create dummy user
-User1 = User(name="Masa Morishita", email="masam@masamorishita.com", picture='')
+# Create dummy user
+User1 = User(
+    name="Masa Morishita", email="masam@masamorishita.com", picture='')
 session.add(User1)
 session.commit()
 
 
-#Add categories
+# Add categories
 category1 = Category(user_id=1, name="Soccer")
 category2 = Category(user_id=1, name="Basketball")
 category3 = Category(user_id=1, name="Baseball")
