@@ -55,4 +55,4 @@ To run the program, execute the following command on your vagrant environment.
 $ python application.py
 ```
 
-You can access the applicatioin from [http://localhost:8000/](http://localhost:8000/){:target="_blank"}.
+You can access the applicatioin from [http://localhost:8000/](http://localhost:8000/).
