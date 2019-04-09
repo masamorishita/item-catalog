@@ -18,7 +18,7 @@
     <div class="navbar-collapse collapse">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown">
-                <a href="#" id="dd_user" class="nav-link">Logout</a>
+                <a href="/login" id="dd_user" class="nav-link">Login</a>
             </li>
         </ul>
     </div>
@@ -28,7 +28,7 @@
     <div class="sidebar sidebar-dark bg-dark">
         <ul class="list-unstyled">
             {% for i in category %}
-            <li><a href="#">{{i.name}}</a></li>
+            <li><a href="/catalog/{{i.name}}/items">{{i.name}}</a></li>
             {% endfor %}
         </ul>
     </div>
@@ -40,7 +40,7 @@
             <div class="card-body">
                 <ul class="list-unstyled">
                     {% for i in items %}
-                    <li><a href="#">{{i.name}}</a></li>
+                    <li><a href="/catalog/{{i.category.name}}/{{i.name}}">{{i.name}} ({{i.category.name}})</a></li>
                     {% endfor %}
                 </ul>
             </div>

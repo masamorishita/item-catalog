@@ -161,7 +161,10 @@ def gdisconnect():
 def item():
     category = session.query(Category).order_by(asc(Category.name))
     items = session.query(Item).order_by(asc(Item.id))
-    return render_template('item.html', category=category, items=items)
+    if 'username' not in login_session:
+        return render_template('publicitem.html', category=category, items=items)
+    else:
+        return render_template('item.html', category=category, items=items)
 
 # Show all items in each category.
 @app.route('/catalog/<category_name>/items')
