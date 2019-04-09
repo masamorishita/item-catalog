@@ -169,9 +169,13 @@ def item():
 # Show all items in each category.
 @app.route('/catalog/<category_name>/items')
 def itemWithCategory(category_name):
+    categories = session.query(Category).order_by(asc(Category.name)).all()
     category = session.query(Category).filter_by(name=category_name).one()
     items = session.query(Item).filter_by(category=category)
-    return render_template('item_by_category.html', category=category, items=items)
+    if 'username' not in login_session:
+        return render_template('publicitembycategory.html', categories = categories, category=category, items=items)
+    else:
+        return render_template('itembycategory.html', categories = categories, category=category, items=items)        
 
 # Show item's description.
 @app.route('/catalog/<category_name>/<item_name>')
