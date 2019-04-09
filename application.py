@@ -180,9 +180,13 @@ def itemWithCategory(category_name):
 # Show item's description.
 @app.route('/catalog/<category_name>/<item_name>')
 def itemInformation(category_name, item_name):
+    categories = session.query(Category).order_by(asc(Category.name)).all()
     category = session.query(Category).filter_by(name=category_name).one()
     items = session.query(Item).filter_by(category=category, name=item_name).one()
-    return render_template('item_information.html', category=category, items=items)
+    if 'username' not in login_session:
+        return render_template('publicitemdetail.html', categories=categories, category=category, items=items)
+    else:
+        return render_template('itemdetail.html', categories=categories, category=category, items=items)        
 
 # Create a new item.
 @app.route('/catalog/item/new', methods=['GET', 'POST'])
