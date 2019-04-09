@@ -1,10 +1,56 @@
-{% extends "main.html" %}
-{% block content %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<h1>Delete Item</h1>
-Are you sure you want to delete?
-<form method='post'>
-<input type="submit" name="Submit">
-</form>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='fontawesome-all.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootadmin.min.css') }}">
 
-{% endblock %}
+    <title>Item Catalog</title>
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-expand navbar-dark bg-primary">
+    <a class="navbar-brand" href="/">Item Catalog</a>
+
+    <div class="navbar-collapse collapse">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+                <a href="/gdisconnect" id="dd_user" class="nav-link">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="d-flex">
+    <div class="sidebar sidebar-dark bg-dark">
+        <ul class="list-unstyled">
+            {% for i in categories %}
+            <li><a href="/catalog/{{i.name}}/items">{{i.name}}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="content p-4">
+        <h2 class="mb-4">Delete Item</h2>
+        <div class="card mb-4">
+            <div class="card-body">
+                 Are you sure you want to delete?
+                </br>
+                </br>
+                <form method='post'>
+                <input type="submit" name="Submit">
+                </form>
+           </div>
+        </div>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+<script src="{{ url_for('static', filename='bootadmin.min.js') }}"></script>
+<script src="{{ url_for('static', filename='bootstrap.bundle.min.js') }}"></script>
+
+</body>
+</html>

@@ -193,6 +193,7 @@ def itemInformation(category_name, item_name):
 def newItem():
     if 'username' not in login_session:
         return redirect('/login')
+    categories = session.query(Category).order_by(asc(Category.name)).all()
     if request.method == 'POST':
         newItem = Item(name=request.form['name'], description=request.form['description'],category_id=request.form['category'])
         session.add(newItem)
@@ -200,7 +201,7 @@ def newItem():
 
         return redirect(url_for('item'))
     else:
-        return render_template('newitem.html')
+        return render_template('newitem.html', categories=categories)
 
 
 # Edit an item.
@@ -209,7 +210,7 @@ def editItem(item_name):
     if 'username' not in login_session:
         return redirect('/login')
     editedItem = session.query(Item).filter_by(name=item_name).one()
-    categories = session.query(Category)
+    categories = session.query(Category).order_by(asc(Category.name)).all()
     if request.method == 'POST':
         if request.form['name']:
             editedItem.name = request.form['name']
@@ -229,13 +230,14 @@ def editItem(item_name):
 def deleteItem(item_name):
     if 'username' not in login_session:
         return redirect('/login')
+    categories = session.query(Category).order_by(asc(Category.name)).all()
     deletedItem = session.query(Item).filter_by(name=item_name).one()
     if request.method == 'POST':
         session.delete(deletedItem)
         session.commit()
         return redirect(url_for('item'))
     else:
-        return render_template('deleteitem.html', item=deletedItem)
+        return render_template('deleteitem.html', item=deletedItem, categories=categories)
 
 
 # Making an API Endpoint (GET Request).
