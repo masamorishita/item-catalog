@@ -91,8 +91,7 @@ def gconnect():
 
     stored_access_token = login_session.get('access_token')
     stored_gplus_id = login_session.get('gplus_id')
-    if stored_access_token is not None
-    and gplus_id == stored_gplus_id:
+    if stored_access_token is not None and gplus_id == stored_gplus_id:
         response = make_response(
             json.dumps('Current user is already connected.'), 200)
         response.headers['Content-Type'] = 'application/json'
@@ -139,8 +138,8 @@ def gdisconnect():
     print 'User name is: '
     print login_session['username']
 
-    url = 'https://accounts.google.com/o/oauth2/revoke?token=%s'
-    % login_session['access_token']
+    url = 'https://accounts.google.com/o/oauth2/revoke?token=%s' \
+        % login_session['access_token']
     h = httplib2.Http()
     result = h.request(url, 'GET')[0]
     print 'result is '
@@ -169,8 +168,7 @@ def gdisconnect():
 @app.route('/')
 @app.route('/catalog')
 def item():
-    category = session.query(Category)
-    .order_by(asc(Category.name))
+    category = session.query(Category).order_by(asc(Category.name))
     items = session.query(Item).order_by(asc(Item.id))
     if 'username' not in login_session:
         return render_template(
@@ -200,8 +198,8 @@ def itemWithCategory(category_name):
 def itemInformation(category_name, item_name):
     categories = session.query(Category).order_by(asc(Category.name)).all()
     category = session.query(Category).filter_by(name=category_name).one()
-    items = session.query(Item)
-    .filter_by(category=category, name=item_name).one()
+    items = session.query(Item).filter_by(
+        category=category, name=item_name).one()
     if 'username' not in login_session:
         return render_template(
             'publicitemdetail.html', categories=categories,
@@ -217,8 +215,7 @@ def itemInformation(category_name, item_name):
 def newItem():
     if 'username' not in login_session:
         return redirect('/login')
-    categories = session.query(Category)
-    .order_by(asc(Category.name)).all()
+    categories = session.query(Category).order_by(asc(Category.name)).all()
     if request.method == 'POST':
         newItem = Item(
             name=request.form['name'],
