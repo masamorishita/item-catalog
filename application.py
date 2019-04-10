@@ -133,7 +133,9 @@ def gconnect():
 
 # User Helper Functions
 def createUser(login_session):
-    newUser = User(name=login_session['username'], email=login_session['email'], picture=login_session['picture'])
+    newUser = User(
+        name=login_session['username'], email=login_session['email'],
+        picture=login_session['picture'])
     session.add(newUser)
     session.commit()
     user = session.query(User).filter_by(email=login_session['email']).one()
@@ -266,7 +268,9 @@ def editItem(item_name):
     editedItem = session.query(Item).filter_by(name=item_name).one()
     categories = session.query(Category).order_by(asc(Category.name)).all()
     if editedItem.user_id != login_session['user_id']:
-        return "<script>function myFunction() {alert('You are not authorized to edit this item. Please create your own item in order to edit.');}</script><body onload='myFunction()''>"
+        return "<script>function myFunction() {alert('You are not authorized"
+        " to edit this item. Please create your own item in order to edit.');}"
+        "</script><body onload='myFunction()''>"
     if request.method == 'POST':
         if request.form['name']:
             editedItem.name = request.form['name']
@@ -290,7 +294,9 @@ def deleteItem(item_name):
     categories = session.query(Category).order_by(asc(Category.name)).all()
     deletedItem = session.query(Item).filter_by(name=item_name).one()
     if deletedItem.user_id != login_session['user_id']:
-        return "<script>function myFunction() {alert('You are not authorized to delete this item. Please create your own item in order to delete.');}</script><body onload='myFunction()''>"
+        return "<script>function myFunction() {alert('You are not authorized"
+        " to delete this item. Please create your own item in order to"
+        " delete.');}</script><body onload='myFunction()''>"
     if request.method == 'POST':
         session.delete(deletedItem)
         session.commit()
@@ -311,7 +317,7 @@ def itemJson():
 def particularItemJson(item_id):
     item = session.query(Item).filter_by(id=item_id)
     return jsonify(Item=[i.serialize for i in item])
-    
+
 
 if __name__ == '__main__':
     app.secret_key = 'super_secret_key'
