@@ -274,6 +274,12 @@ def itemJson():
     return jsonify(Item=[i.serialize for i in items])
 
 
+@app.route('/catalog/<int:item_id>/json')
+def particularItemJson(item_id):
+    item = session.query(Item).filter_by(id=item_id)
+    return jsonify(Item=[i.serialize for i in item])
+    
+
 if __name__ == '__main__':
     app.secret_key = 'super_secret_key'
     app.debug = True
