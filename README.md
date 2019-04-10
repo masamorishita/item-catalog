@@ -56,3 +56,18 @@ $ python application.py
 ```
 
 You can access the applicatioin from [http://localhost:8000/](http://localhost:8000/).
+
+## 6. JSON API
+You can get data of the entire items in JSON format via the following URL:
+```
+http://localhost:8000/catalog.json
+```
+
+In case you would like to have data in a particular item, use the following URL:
+```
+http://localhost:8000/catalog/<item_id>/json
+```
+Here is one of the examples:
+```
+http://localhost:8000/catalog/3/json
+```
